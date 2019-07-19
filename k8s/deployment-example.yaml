@@ -16,7 +16,7 @@ spec:
         app: xaccelerator
     spec:
       containers:
-      - image: quay.io/volatilemolotov/xaccelerator:dev
+      - image: quay.io/volatilemolotov/xaccelerator
         name: xaccelerator
         imagePullPolicy: Always
         env:
