@@ -10,10 +10,9 @@ All is configured via Values :
 ```
 replicaCount: 1
 image:
-  repository: docker-app.nsoft.com:10884/xaccelerator
+  repository: quay.io/volatilemolotov/xaccelerator
   tag: 0.0.1
   pullPolicy: Always
-  pullSecret: god-docker-secret
 nameOverride: ""
 fullnameOverride: ""
 
@@ -55,7 +54,7 @@ var fileName string
 var fileUrl string
 
 func main() {
-	fileUrl = "https://storage.googleapis.com/accelerator-test/file"
+	fileUrl = "https://path_to_file/file"
 	subStringsSlice := strings.Split(fileUrl, "/")
 	fileName = subStringsSlice[len(subStringsSlice)-1]
 
