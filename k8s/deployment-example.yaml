@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: xaccelerator
+  name: xaccelerator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: xaccelerator
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: xaccelerator
+    spec:
+      containers:
+      - image: quay.io/volatilemolotov/xaccelerator:dev
+        name: xaccelerator
+        imagePullPolicy: Always
+        env:
+          - name: BACKEND
+            valueFrom:
+              configMapKeyRef:
+                name: xaccelerator-config
+                key: backend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: xaccelerator
+  name: xaccelerator
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: xaccelerator
+  type: ClusterIP

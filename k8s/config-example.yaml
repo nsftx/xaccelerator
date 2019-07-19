@@ -1,0 +1,6 @@
+apiVersion: v1
+data:
+  backend: "http://helloworld-go"
+kind: ConfigMap
+metadata:
+  name: xaccelerator-config

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "xaccelerator.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "xaccelerator.name" . }}
+    helm.sh/chart: {{ include "xaccelerator.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+data:
+    backend: {{ .Values.config.backend }}

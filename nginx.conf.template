@@ -1,0 +1,26 @@
+error_log /dev/stdout info;
+events { }
+
+http {
+     access_log /dev/stdout;
+    server {
+        listen 8080;
+        location / {
+        proxy_pass ${BACKEND};
+    }
+    internal;
+    resolver 8.8.8.8;
+    proxy_pass $1;
+    set $xauth $upstream_http_x_auth;
+    proxy_set_header Authorization $xauth;
+    proxy_pass_request_headers on;
+  }
+
+  location /status {
+    stub_status;
+    allow all;
+}
+
+}
+
+    }
