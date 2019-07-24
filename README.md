@@ -83,4 +83,4 @@ func HelloServer(rw http.ResponseWriter, req *http.Request) {
 
 ```
 
-X-Accel-Redirect works by stripping `X-Accel-Redirect` and `X-Auth` headers from respones (These headers are not provided by the client in the request but are provided by the backend via response) and using the link provided to begin the download proxy using `X-Auth` as a auth token. Backend shoud handle the auth of the user and can log the download but the file is proxied through the accelerator. 
+X-Accel-Redirect works by stripping `X-Accel-Redirect` and `X-Auth` headers from respones (These headers are not provided by the client in the request but are provided by the backend via response) and using the link provided to begin the download proxy using `X-Auth` as a auth token. Backend shoud handle the auth of the user and can log the download but the file is proxied through the accelerator.  `X-Accel-File-Url` and `X-Accel-File` are used for designating file location or url respectively. Path in `X-Accel-Redirect` will determine is the dowload local or remote URL. 
