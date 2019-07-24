@@ -54,7 +54,7 @@ var fileName string
 var fileUrl string
 
 func main() {
-	fileUrl = "https://path_to_file/file"
+	fileUrl = "https://storage.googleapis.com/accelerator-test/file"
 	subStringsSlice := strings.Split(fileUrl, "/")
 	fileName = subStringsSlice[len(subStringsSlice)-1]
 
@@ -68,18 +68,32 @@ func main() {
 
 
 	http.HandleFunc("/", HelloServer)
+	http.HandleFunc("/remote_file", RemoteFile)
+	http.HandleFunc("/local_file", LocalFile)
 	http.ListenAndServe(":8080", nil) // set listen port
 }
 
-func HelloServer(rw http.ResponseWriter, req *http.Request) {
+func RemoteFile(rw http.ResponseWriter, req *http.Request) {
 	rw.Header().Set("Content-Type", fileType)
 	rw.Header().Set("Content-Length", fileSize)
 	rw.Header().Set("Content-Disposition", "attachment; filename=" + fileName)
-	rw.Header().Set("X-Accel-Redirect", "/accelerator/" + fileUrl)
-	rw.Header().Set("X-Auth", "Bearer ya29.c.El9KB_ojFVVziv1zjzS-5gzdjnU_BZSML61drj62Yfvt5Inx5oTMTFDjfojKn1HhXmngZ9bSaNYWFkr3ZQUh2pxUYIG69NuuJveqxsXPOUTg397CyEcfxwN8Bqy6mK9bKA")
-
+	rw.Header().Set("X-Accel-Redirect", "/url_download/")
+	rw.Header().Set("X-Accel-File-Url", fileUrl)
+	rw.Header().Set("X-Accel-test", "vdjerek")
+	rw.Header().Set("X-Auth", "Bearer ya29.c.El9PB-r85PmXXhdXOmLqC-9B6GUuHN74gSHwf0qUAH6Fi9M0SzfMpcNiwYJ3B_-UNgbQctK-x_I9IkAb4sW-LVnGO-5luKHWJsUslIUILeWyBYAV-IKi67iHvalpoYIKsA")
 	rw.WriteHeader(http.StatusOK)
 }
+
+func LocalFile(rw http.ResponseWriter, req *http.Request) {
+	rw.Header().Set("X-Accel-Redirect", "/local_download/")
+	rw.Header().Set("X-Accel-File", "/cws/file1")
+	rw.WriteHeader(http.StatusOK)
+}
+
+func HelloServer(rw http.ResponseWriter, req *http.Request) {
+	rw.WriteHeader(http.StatusOK)
+}
+
 
 ```
 
