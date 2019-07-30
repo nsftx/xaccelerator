@@ -1,7 +1,7 @@
 replicaCount: 1
 image:
   repository: quay.io/volatilemolotov/xaccelerator
-  tag: 0.0.2
+  tag: 0.0.3
   pullPolicy: Always
   pullSecret: god-docker-secret
 nameOverride: ""
